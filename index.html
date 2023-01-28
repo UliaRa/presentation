@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Canvas</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<link rel="stylesheet" href="css/custom.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Canvas</h1>
+					<p>Prepared by: Yulia Raeva</p>
+				</section>
+				<section>
+					<section>
+						<h2>What is it?</h2>
+						<p>Canvas is HTML-Element for graphics and animations</p>
+						<pre><code data-trim>
+							<canvas>Here is the canvas element!</canvas>
+						</code></pre>
+					</section>
+					<section>
+						<h2>Attributes:</h2>
+						<table>
+							<tr class="fragment highlight-current-blue">
+								<th>width</th>
+								<td>default value - 150px</td>
+							</tr>
+							<tr class="fragment highlight-current-blue">
+								<th>height</th>
+								<td>default value - 300px</td>
+							</tr>
+						</table>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>How it works?</h2>
+						<div class="how__main">
+							<img width="450" height="450" data-src="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes/canvas_default_grid.png">
+							<div>
+								<p class="fragment highlight-blue">Coordinate space</p>
+								<p>Canvas grid used for placing elements</p>
+								<p class="fragment fade-up">Origin point at (0, 0)</p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h2>Filling canvas</h2>
+						<pre><code data-trim data-noescape>
+							var canvas = document.getElementById('tutorial');
+							var ctx = canvas.getContext('2d');
+						</code></pre>
+						<p class="fragment fade-up">Canvas is filled by JavaScript which works with its context</p>
+					</section>
+					<section>
+						<h2>Canvas vs context?</h2>
+						<table>
+							<thead>
+								<th>Canvas</th>
+								<th>Context</th>
+							</thead>
+							<tr>
+								<td class="fragment highlight-current-blue">DOM Node</td>
+								<td class="fragment highlight-current-blue">Object</td>
+							</tr>
+						</table>
+						<p class="fragment highlight-current-red">Each canvas element has only one context object!</p>
+					</section>
+					<section>
+						<h2>What can be drawn?</h2>
+						<div class="example__block">
+							<div class="fragment">
+								<div class="example__rect"></div>
+								<span>Rectangle</span>
+							</div>
+							<div class="fragment">
+								<img data-src="src/line.png">
+								<span>Path</span>
+							</div>
+							<div class="fragment">
+								<img data-src="src/image.jpg">
+								<span>Image</span>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h2>Circle</h2>
+						<div class="how__main">
+							<img data-src="src/circle.png">
+							<pre><code data-trim data-noescape>
+							var c = document.getElementById("myCanvas");
+							var ctx = c.getContext("2d");
+							ctx.beginPath();
+							ctx.arc(100, 75, 50, 0, 2 * Math.PI);
+							ctx.stroke();
+							</code></pre>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Example</h2>
+						<div class="how__main">
+							<img class="puzzle__img" data-src="src/puzzle.png">
+							<div>
+								<a href="https://rolling-scopes-school.github.io/uliara-JSFE2022Q3/game/index.html">Puzzle game</a>
+								<p>You can play by clicking link</p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h2>Initial state</h2>
+						<pre><code data-trim data-noescape>
+									if (array[i].number === 0) {
+										ctx.fillStyle = '#dee7ee';
+										ctx.fillRect(array[i].x, array[i].y,
+										  array[i].side, array[i].side);
+									} else {
+										ctx.fillStyle = '#7dc7d2';
+										ctx.fillRect(array[i].x, array[i].y,
+										  array[i].side, array[i].side);
+										ctx.fillStyle = "#fff";
+										ctx.font = '26px Times New Roman';
+										ctx.fillText(array[i].number, array[i].x +
+										  (array[i].side / 2), array[i].y
+										  + (array[i].side / 2));
+									}
+						</code></pre>
+					</section>
+					<section>
+						<h2>Animation</h2>
+						<pre><code data-trim data-noescape>
+							let animationInterval = setInterval(function() {
+								ctx.clearRect(startX, startY, clickedCell.side,
+								  clickedCell.side);
+					
+								if (clickedCell.x == empty.x) {
+									startY < empty.y ? startY += 10 : startY -= 10;
+								} else {
+									startX < empty.x ? startX += 10 : startX -= 10;
+								}
+					
+								ctx.fillStyle = "#7dc7d2";
+								ctx.fillRect(startX, startY, clickedCell.side,
+								  clickedCell.side);
+								ctx.fillStyle = "#fff";
+								ctx.fillText(movedNumber, startX + (clickedCell.side / 2),
+								startY + (clickedCell.side / 2));
+					
+								if (startX == empty.x && startY == empty.y) {
+									clearInterval(animationInterval);
+								}
+							}, 50);
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<h2>Thank you for your attention!</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				slideNumber: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
